@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1.0"
+	/>
+	<title>Hello, WebAssembly!</title>
+</head>
+<body>
+	<h1>こんにちは、WebAssembly!</h1>
+	<pre id="output"></pre>
+
+	<h3>参考</h3>
+	<ul>
+		<li><a href="https://developer.mozilla.org/ja/docs/WebAssembly/Rust_to_wasm">Rust から WebAssembly にコンパイルする - WebAssembly | MDN</a></li>
+		<li>
+			<a href="https://fukuno.jig.jp/2918">RustではじめるWebAssemblyはじめのいっぽ、足し算するwasmファイルは116byte #rust #wasm #js / 福野泰介の一日一創 / Create every day by Taisuke Fukuno</a>
+		</li>
+	</ul>
+	<script type="module">
+		(async () => {
+			const bin = await (
+				await fetch('./lib.wasm')
+			).arrayBuffer();
+			const wasm = await WebAssembly.instantiate(bin);
+			const { add, sin } = wasm.instance.exports;
+			document.getElementById('output').textContent =
+`WebAssembly in Rust, add(1, 2) = ${add(1, 2)}
+sin(1.570796326794897) = ${sin(1.570796326794897)}`;
+		})();
+	</script>
+</body>
+</html>
