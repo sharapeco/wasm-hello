@@ -4,6 +4,10 @@ Rust で書いた関数を JavaScript から呼び出すテスト
 
 ## 使い方
 
+### 初期設定
+
+#### macOS での設定
+
 macOS Mojave で作業した。まずは Xcode をインストールする。
 
 - [Xcode - インストール可能 対応バージョン macOS 一覧 / Install Support macOS Version Lists 【 2020.06 】 - Qiita](https://qiita.com/thinkalot/items/1dfdba642906c1bf1fd2)
@@ -14,7 +18,9 @@ macOS Mojave で作業した。まずは Xcode をインストールする。
 
 ダウンロードした .xip ファイルを展開すると Xcode.app ができるので、 `/Applications` に移動する。
 
-Rust をアップデート
+#### Rust をアップデート
+
+もし Rust をだいぶ前に入れた場合は次のコマンドでアップデートする。
 
 ```shell-session
 $ rustup update
@@ -23,6 +29,26 @@ $ rustup update
 $ rustc --version
 rustc 1.52.1 (9bc8c42bb 2021-05-09)
 ```
+
+#### WebAssembly にコンパイルするための target を追加する
+
+```shell-session
+$ rustup target add wasm32-unknown-unknown
+```
+
+### ビルド方法
+
+次のコマンドを実行する。lib.wasm ができあがる。
+
+```shell-session
+rustc --target wasm32-unknown-unknown src/lib.rs -C opt-level=1
+```
+
+### HTML 側での確認方法
+
+Visual Studio Code でワークスペースを開き、ステータスバーの「Go Live」をクリックする。するとブラウザが開く。
+
+ファイルを更新すると自動的に再読み込みされる。
 
 ## プロジェクトを新規に作るときは……（Rust 初心者向け）
 
