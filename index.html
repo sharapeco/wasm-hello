@@ -18,11 +18,18 @@
 			const bin = await (
 				await fetch('./lib.wasm')
 			).arrayBuffer();
-			const wasm = await WebAssembly.instantiate(bin);
-			const { add, sin } = wasm.instance.exports;
+			const wasm = await WebAssembly.instantiate(bin, {
+				imports: {
+					math_sin: (x) => Math.sin(x),
+					math_cos: (x) => Math.cos(x)
+				}
+			});
+			const { add, sin, cos } = wasm.instance.exports;
 			document.getElementById('output').textContent =
-`WebAssembly in Rust, add(1, 2) = ${add(1, 2)}
-sin(1.570796326794897) = ${sin(1.570796326794897)}`;
+`WebAssembly in Rust,
+  add(1, 2) = ${add(1, 2)}
+  sin(Math.PI / 2) = ${sin(Math.PI / 2)}
+  cos(Math.PI / 2) = ${cos(Math.PI / 2)}`;
 		})();
 	</script>
 </body>
