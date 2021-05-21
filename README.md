@@ -62,3 +62,4 @@ $ cargo new --lib wasm-hello
 
 - [Rust から WebAssembly にコンパイルする - WebAssembly | MDN](https://developer.mozilla.org/ja/docs/WebAssembly/Rust_to_wasm)
 - [RustではじめるWebAssemblyはじめのいっぽ、足し算するwasmファイルは116byte #rust #wasm #js / 福野泰介の一日一創 / Create every day by Taisuke Fukuno](https://fukuno.jig.jp/2918)
+- [最低限のtoolchainでRustとWebAssembly - CADDi Tech Blog](https://caddi.tech/archives/879)
